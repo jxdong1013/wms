@@ -1,6 +1,63 @@
-﻿@{
+﻿@model WMSModel.WMSData
+@{
     ViewBag.Title = "Index";
 }
+
+
+<script type="text/javascript">
+
+    //最新消息每60秒刷新一次
+    setInterval(function () {
+        $.ajax({
+            url: '@Url.Action( "GetData", "Monitor")', //异步请求Action
+            data: "",
+            type: "Get", //POST
+            success: function (result) {
+
+                //alert(result.TotalCount);
+
+
+                $("#in_totalshift").html(result.InDocument.TotalShift);
+
+                $("#in_totalbox").html(result.InDocument.TotalBox);
+
+                $("#in_totalpackage").html(result.InDocument.TotalPackage);
+
+                $("#borrow_totalshift").html(result.BorrowDocument.TotalShift);
+                $("#borrow_totalbox").html(result.BorrowDocument.TotalBox);
+                $("#borrow_totalpackage").html(result.BorrowDocument.TotalPackage);
+
+                $("#out_totalshift").html(result.OutDocument.TotalShift);
+                $("#out_totalpackage").html(result.OutDocument.TotalPackage);
+
+                $("#destory_totalshift").html(result.DestoryDocument.TotalShift);
+                $("#destory_totalpackage").html(result.DestoryDocument.TotalPackage);
+
+                $("#all_todayinoutcount").html(result.TodayInOutCount);
+
+                $("#warehouse1").html(result.WareHourseOne.Name);
+                $("#warehouset1").html(result.WareHourseOne.Temperature);
+                $("#warehouseh1").html(result.WareHourseOne.Humidity);
+
+                $("#warehouse2").html(result.WareHourseTwo.Name);
+                $("#warehouset2").html(result.WareHourseTwo.Temperature);
+                $("#warehouseh2").html(result.WareHourseTwo.Humidity);
+
+                $("#warehouse3").html(result.WareHourseThree.Name);
+                $("#warehouset3").html(result.WareHourseThree.Temperature);
+                $("#warehouseh3").html(result.WareHourseThree.Humidity);
+
+                $("#check_checkcount").html(result.WareHourseCheck.CheckMonthCount);
+                $("#check_reportcount").html(result.WareHourseCheck.ReportMonthCount);
+                $("#check_repaircount").html(result.WareHourseCheck.RepairMonthCount);
+                $("#check_warncount").html(result.WareHourseCheck.WarnMonthCount);
+
+                $("#threeurl").attr("href", result.ThreeDUrl);
+            }
+        });
+    }, 10000);
+
+</script>
 
 <div class="container-fluid">
     <div class="row">
@@ -15,7 +72,7 @@
 
                             <a><img src="~/Images/da1.png" /></a>
                             <p><span>总档数</span></p>
-                            <p><span>12023</span></p>
+                            <p><span id="in_totalshift">@Model.InDocument.TotalShift</span></p>
 
                         </div>
                         <div id="div2" class="col-md-4  col-sm-4 monitor-div-nav1">
@@ -25,14 +82,14 @@
                             <p>
                                 <span>总盒数</span>
                             </p>
-                            <p> <span>12023</span></p>
+                            <p> <span id="in_totalbox">@Model.InDocument.TotalBox</span></p>
                         </div>
                         <div id="div3" class="col-md-4  col-sm-4 monitor-div-nav1">
 
                             <a><img src="~/Images/da3.png" /></a>
 
                             <p><span>总件数</span></p>
-                            <p></p><span>12023</span></p>
+                            <p></p><span id="in_totalpackage">@Model.InDocument.TotalPackage</span></p>
                         </div>
                     </div>
                 </div>
@@ -46,7 +103,7 @@
 
                             <a><img src="~/Images/da1.png" /></a>
                             <p><span>总档数</span></p>
-                            <p><span>12023</span></p>
+                            <p><span id="borrow_totalshift">@Model.BorrowDocument.TotalShift</span></p>
 
                         </div>
                         <div id="div2" class="col-md-4  col-sm-4 monitor-div-nav1">
@@ -56,14 +113,14 @@
                             <p>
                                 <span>总盒数</span>
                             </p>
-                            <p> <span>12023</span></p>
+                            <p> <span id="borrow_totalbox">@Model.BorrowDocument.TotalBox</span></p>
                         </div>
                         <div id="div3" class="col-md-4  col-sm-4 monitor-div-nav1">
 
                             <a><img src="~/Images/da3.png" /></a>
 
                             <p><span>总件数</span></p>
-                            <p></p><span>12023</span></p>
+                            <p></p><span id="borrow_totalpackage">@Model.BorrowDocument.TotalPackage</span></p>
                         </div>
                     </div>
                 </div>
@@ -77,7 +134,7 @@
 
                             <a><img src="~/Images/da1.png" /></a>
                             <p><span>总档数</span></p>
-                            <p><span>12023</span></p>
+                            <p><span id="out_totalshift">@Model.OutDocument.TotalShift</span></p>
 
                         </div>
                         <div id="div2" class="col-md-4  col-sm-4 monitor-div-nav1">
@@ -91,7 +148,7 @@
                             <a><img src="~/Images/da3.png" /></a>
 
                             <p><span>总件数</span></p>
-                            <p></p><span>12023</span></p>
+                            <p></p><span id="out_totalpackage">@Model.OutDocument.TotalPackage</span></p>
                         </div>
                     </div>
                 </div>
@@ -105,7 +162,7 @@
 
                             <a><img src="~/Images/da1.png" /></a>
                             <p><span>总档数</span></p>
-                            <p><span>12023</span></p>
+                            <p><span id="destory_totalshift">@Model.DestoryDocument.TotalShift</span></p>
 
                         </div>
                         <div id="div2" class="col-md-4  col-sm-4 monitor-div-nav1">
@@ -119,7 +176,7 @@
                             <a><img src="~/Images/da3.png" /></a>
 
                             <p><span>总件数</span></p>
-                            <p></p><span>12023</span></p>
+                            <p></p><span id="destory_totalpackage">@Model.DestoryDocument.TotalPackage</span></p>
                         </div>
                     </div>
                 </div>
@@ -131,8 +188,8 @@
                     <div class="">
                         <div id="div1" class="col-md-12 col-sm-12 monitor-div-nav1">
 
-                            <a><img src="~/Images/da1.png" /></a>
-                           <span>三维虚拟库房网址</span>   
+                            <a><img src="~/Images/sw.png" /></a>
+                           <span><a id="threeurl" href="@Model.ThreeDUrl" target="_blank"><span >三维虚拟库房网址</span></a></span>   
 
                         </div>                        
                        
@@ -151,35 +208,35 @@
                 <div class="monitor-right-div-title-right">
                     <label>门禁当日出入库人次</label>
                     <img src="~/Images/ren1.png">
-                    <label>90</label>
+                    <label id="all_todayinoutcount">@Model.TodayInOutCount</label>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-12 monitor-right-div-kf-container">
                 <div class="col-md-4 col-sm-4 monitor-right-div-kf">
                     <div class="monitor-right-div-nav1">
-                        <div><label class="moitor-right-text-color">库房1</label></div>
-                        <div class="monitor-right-div-wd"><img src="~/Images/wd.png" /><label class="monitor-right-div-wd-wz">35°C</label></div>
+                        <div><label id="warehouse1" class="moitor-right-text-color">@Model.WareHourseOne.Name</label></div>
+                        <div class="monitor-right-div-wd"><img src="~/Images/wd.png" /><label id="warehouset1" class="monitor-right-div-wd-wz">@Model.WareHourseOne.Temperature</label></div>
                         <div><label class="moitor-right-text-color">温度计</label></div>
-                        <div class="monitor-right-div-wd"><img src="~/Images/sd.png" /><label class="monitor-right-div-wd-wz">35%</label></div>
+                        <div class="monitor-right-div-wd"><img src="~/Images/sd.png" /><label id="warehouseh1" class="monitor-right-div-wd-wz">@Model.WareHourseOne.Humidity</label></div>
                         <div><label class="moitor-right-text-color">湿度值</label></div>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 monitor-right-div-kf">
                     <div class="monitor-right-div-nav1">
-                        <div><label class="moitor-right-text-color">库房2</label></div>
-                        <div class="monitor-right-div-wd"><img src="~/Images/wd.png" /><label class="monitor-right-div-wd-wz">35°C</label></div>
+                        <div><label id="warehouse2" class="moitor-right-text-color">@Model.WareHourseTwo.Name</label></div>
+                        <div class="monitor-right-div-wd"><img src="~/Images/wd.png" /><label id ="warehouset2" class="monitor-right-div-wd-wz">@Model.WareHourseTwo.Temperature</label></div>
                         <div><label class="moitor-right-text-color">温度计</label></div>
-                        <div><img src="~/Images/sd.png" /><label class="monitor-right-div-wd-wz">35%</label></div>
+                        <div><img src="~/Images/sd.png" /><label id="warehouseh2" class="monitor-right-div-wd-wz">@Model.WareHourseTwo.Humidity</label></div>
                         <div><label class="moitor-right-text-color">湿度值</label></div>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 monitor-right-div-kf">
                     <div class="monitor-right-div-nav1">
-                        <div><label class="moitor-right-text-color">库房3</label></div>
-                        <div class="monitor-right-div-wd"><img src="~/Images/wd.png" /><label class="monitor-right-div-wd-wz">35°C</label></div>
+                        <div><label id="warehouse3" class="moitor-right-text-color">@Model.WareHourseThree.Name</label></div>
+                        <div class="monitor-right-div-wd"><img src="~/Images/wd.png" /><label id="warehouset3" class="monitor-right-div-wd-wz">@Model.WareHourseThree.Temperature</label></div>
                         <div><label class="moitor-right-text-color">温度计</label></div>
-                        <div><img src="~/Images/sd.png" /><label class="monitor-right-div-wd-wz">35%</label></div>
+                        <div><img src="~/Images/sd.png" /><label id="warehouseh3" class="monitor-right-div-wd-wz">@Model.WareHourseThree.Humidity</label></div>
                         <div><label class="moitor-right-text-color">湿度值</label></div>
                     </div>
                 </div>
@@ -195,9 +252,9 @@
                         <div class="monitor-right-div-kfsafe-pic"><img src="~/Images/f1.png" /></div>
                         <div class="monitor-right-div-kfsafe-xline"></div>
                         <div>
-                            <label>库房当月</label><br /><label>巡检记录</label>
+                            <label>库房当月</label><br /><label>巡检次数</label>
                         </div>
-                        <div class="monitor-right-div-kfsafe-count"><label>35</label></div>
+                        <div class="monitor-right-div-kfsafe-count"><label id="check_checkcount">@Model.WareHourseCheck.CheckMonthCount</label></div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3">
@@ -205,9 +262,9 @@
                         <div class="monitor-right-div-kfsafe-pic"><img src="~/Images/f2.png" /></div>
                         <div class="monitor-right-div-kfsafe-xline"></div>
                         <div>
-                            <label>库房当月</label><br /><label>巡检记录</label>
+                            <label>库房当月故障</label><br /><label>保修次数</label>
                         </div>
-                        <div class="monitor-right-div-kfsafe-count"><label>35</label></div>
+                        <div class="monitor-right-div-kfsafe-count"><label id="check_reportcount">@Model.WareHourseCheck.ReportMonthCount</label></div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3">
@@ -215,9 +272,9 @@
                         <div class="monitor-right-div-kfsafe-pic"><img src="~/Images/f3.png" /></div>
                         <div class="monitor-right-div-kfsafe-xline"></div>
                         <div>
-                            <label>库房当月</label><br /><label>巡检记录</label>
+                            <label>库房当月故障</label><br /><label>处理次数</label>
                         </div>
-                        <div class="monitor-right-div-kfsafe-count"><label>35</label></div>
+                        <div class="monitor-right-div-kfsafe-count"><label id="check_repaircount">@Model.WareHourseCheck.RepairMonthCount</label></div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3">
@@ -225,9 +282,9 @@
                         <div class="monitor-right-div-kfsafe-pic"><img src="~/Images/f4.png" /></div>
                         <div class="monitor-right-div-kfsafe-xline"></div>
                         <div>
-                            <label>库房当月</label><br /><label>巡检记录</label>
+                            <label>月温湿度</label><br /><label>报警次数</label>
                         </div>
-                        <div class="monitor-right-div-kfsafe-count"><label>35</label></div>
+                        <div class="monitor-right-div-kfsafe-count"><label id="check_warncount">@Model.WareHourseCheck.WarnMonthCount</label></div>
                     </div>
                 </div>
             </div>

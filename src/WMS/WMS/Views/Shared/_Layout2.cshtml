@@ -18,7 +18,7 @@
             <div class="wms_header_container ">
                 <div class="wms_header_left">
                     <a href="#" class="wms_header_logo"><img src="~/Images/logo.png" /></a>
-                    <div class="wms_header_date"> <label>2016年05月31日</label></div>
+                    <div class="wms_header_date"> <label>@ViewBag.currentYear年@ViewBag.currentMonth月@ViewBag.currentDay日</label></div>
                 </div>
                 <div class="wms_header_right">
                     <div class="wms_header_text1">
@@ -29,7 +29,7 @@
                     </div>
                     <div class="wms_header_empty"></div>
                     <div class="wms_header_text2">
-                        <label>18900500</label>
+                        <label id="all_totalcount">@ViewBag.totalCount</label>
                     </div>
                 </div>
 
