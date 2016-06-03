@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+
+    @Styles.Render("~/Content/css")
+    
+</head>
+
+<body>
+
+    <header class="wms_header">
+        <div>
+            <div class="wms_header_container ">
+                <div class="wms_header_left">
+                    <a href="#" class="wms_header_logo"><img src="~/Images/logo.png" /></a>
+                    <div class="wms_header_date"> <label>@ViewBag.currentYear年@ViewBag.currentMonth月@ViewBag.currentDay日</label></div>
+                </div>
+                <div class="wms_header_right">
+                    <div class="wms_header_text1">
+                        <label>资料入库核查状态下的总档数</label>
+                    </div>
+                    <div class="wms_header_ren">
+                        <img src="~/Images/ren2.png" />
+                    </div>
+                    <div class="wms_header_empty"></div>
+                    <div class="wms_header_text2">
+                        <label id="all_totalcount">@ViewBag.totalCount</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <div >
+        @RenderSection("featured", required: false)
+        <section >
+            @RenderBody()
+        </section>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap/js")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
